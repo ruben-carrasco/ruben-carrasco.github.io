@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio Formulario</title>
+</head>
+<body>
+    <form action="https://lm.ciclo.iesnervion.es/" method="POST">
+        <fieldset>
+            <legend>Receta</legend>
+            <label for="nombre">Nombre de la receta:</label>
+            <input type="text" name="nombre" id="nombre"><br>
+            <label for="correo">Correo del autor: </label>
+            <input type="email" name="correo" id="correo"><br>
+            <label>Momento para comer:</label><br>
+            <input type="checkbox" name="momento[]" value="desayuno">Desayuno</input>
+            <input type="checkbox" name="momento[]" value="almuerzo">Almuerzo</input>
+            <input type="checkbox" name="momento[]" value="cena">Cena</input>
+            <input type="checkbox" name="momento[]" value="merienda">Merienda</input>
+            <input type="checkbox" name="momento[]" value="postre">Postre</input><br>
+            <label for="ingredientes">Ingredientes:</label><br>
+            <select name="ingredientes[]" id="ingredientes" multiple>
+                <optgroup label="Carne">
+                    <option>Pollo</option>
+                    <option>Cerdo</option>
+                    <option>Ternera</option>
+                </optgroup>
+                <optgroup label="Pescado">
+                    <option>Boqueron</option>
+                    <option>Sardina</option>
+                    <option>Dorada</option>
+                </optgroup>
+                <optgroup label="Verdura">
+                    <option>Cebolla</option>
+                    <option>Ajo</option>
+                    <option>Zanahoria</option>
+                </optgroup>
+                <optgroup label="Fruta">
+                    <option>Pera</option>
+                    <option>Mango</option>
+                    <option>Sandía</option>
+                </optgroup>
+            </select><br>
+            <label>Tiempo de preparación:</label><br>
+            <label>Horas: </label>
+            <input type="radio" name="horas" value="0">0</input>
+            <input type="radio" name="horas" value="1">1</input>
+            <input type="radio" name="horas" value="2">2</input><br>
+            <label>Minutos: </label>
+            <input type="radio" name="minutos" value="0-15">0-15</input>
+            <input type="radio" name="minutos" value="15-30">15-30</input>
+            <input type="radio" name="minutos" value="30-45">30-45</input>
+            <input type="radio" name="minutos" value="45-60">45-60</input><br>
+            <input type="submit" name="enviar" value="Enviar">
+        </fieldset>
+    </form>
+</body>
+</html>
