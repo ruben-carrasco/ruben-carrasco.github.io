@@ -1,0 +1,50 @@
+body {
+	background-color: #B5F4FF;
+}
+
+h1 {
+	font-family: Helvetica;
+}
+
+header {
+	background-color: #007bff;
+}
+
+nav a {
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	color: blue;
+}
+
+#contenido {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#contenido h2 {
+	font-size: 25px;
+}
+
+#contenido p {
+	font-family: Arial;
+	color: black;
+	font-size: 15px;
+}
+
+#contenido img {
+	width: 50%;
+	height: auto;
+}
+
+footer {
+	background-color: #333;
+	color: white;
+	text-align: center;
+	padding: 10px;
+}
