@@ -11,6 +11,9 @@ header {
 	border: 2px solid black;
 	border-radius: 10px;
 	padding: 5px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 nav a {
