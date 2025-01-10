@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th id="nombre"></th>
+                <th id="apellido"></th>
+                <th id="edad"></th>
+                <th id="ciudad"></th>
+            </tr>
+        </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        let usuario= {
+            nombre: "Alberto",
+            apellido: "Ramos",
+            edad: 26,
+            ciudad: "Granada"
+        };
+
+        obj_serializado = serializar(usuario); //Realiza la funcion de serializar (pasar a String) sobre el objeto
+
+        obj_deserializado = deserializar(obj_serializado); //Realiza la funcion de deserializar (pasar String a Object) sobre el String
+
+        // Añadimos los datos a los compos con etiqueta
+        $("#nombre").text(obj_deserializado.nombre);
+        $("#apellido").text(obj_deserializado.apellido);
+        $("#edad").text(obj_deserializado.edad);
+        $("#ciudad").text(obj_deserializado.ciudad);
+
+
+        // Funcion que serializa
+        function serializar(obj) {
+            return JSON.stringify(obj)
+        };
+
+        // Funcion que desrializar
+        function deserializar(objJson) {
+            return JSON.parse(objJson)
+        };   
+    </script>
+</body>
+</html>

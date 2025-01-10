@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="texto"></p>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        let usuario= {
+            nombre: "Alberto",
+            apellido: "Ramos",
+            edad: 26,
+            ciudad: "Granada"
+        };
+
+        console.log(typeof usuario); // Object
+
+        obj_serializado = serializar(usuario); //Realiza la funcion de serializar (pasar a String) sobre el objeto
+
+        console.log(typeof obj_serializado); // String
+        console.log(obj_serializado); // Imprime el String
+
+        obj_deserializado = deserializar(obj_serializado); //Realiza la funcion de deserializar (pasar String a Object) sobre el String
+
+        console.log( typeof obj_deserializado); //Object
+        console.log(obj_deserializado); // Objeto JavaScript
+
+        // Funcion que serializa
+        function serializar(obj) {
+            return JSON.stringify(obj)
+        };
+
+        // Funcion que desrializar
+        function deserializar(objJson) {
+            return JSON.parse(objJson)
+        };   
+    </script>
+</body>
+</html>

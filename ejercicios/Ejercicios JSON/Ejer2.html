@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio2</title>
+</head>
+<body>
+    <h1>Ejercicio 2: datos dinámicos</h1>
+    <!--Formulario-->
+    <form id="formulario">
+        <input id="nombre" type="text" placeholder="nombre">
+        <input id="apellido" type="text" placeholder="apellido">
+        <input id="edad" type="text" placeholder="edad">
+        <input id="ciudad" type="text" placeholder="ciudad">
+        <button type="reset" onclick="enviar()">Pulsa y observa la consola</button>
+    </form>
+
+    <table>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+       
+       function enviar(){
+            let objeto = {
+                nombre: $("#nombre").val(),
+                apellido: $("#apellido").val(),
+                edad: $("#edad").val(),
+                ciudad: $("#ciudad").val()
+            }
+        console.log(objeto);
+        };
+
+        
+
+        // Funcion que serializa
+        function serializar(obj) {
+            return JSON.stringify(obj)
+        };
+
+        // Funcion que desrializar
+        function deserializar(objJson) {
+            return JSON.parse(objJson)
+        };   
+    </script>
+</body>
+</html>
