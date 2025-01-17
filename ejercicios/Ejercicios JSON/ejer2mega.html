@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejer2mega</title>
+</head>
+<body>
+    <!--Formulario-->
+    <form>
+        <input id="nombre" type="text" placeholder="nombre">
+        <input id="apellido" type="text" placeholder="apellido">
+        <input id="edad" type="text" placeholder="edad">
+        <input id="ciudad" type="text" placeholder="ciudad">
+        <button id="botonEnviar" type="button">Pulsa y observa la consola</button>
+    </form>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        // Array que almacena las filas
+        let filas = [];
+        // Contador para cada usuario
+        let numFila = 0;
+
+        // Funcion enviar
+        $("#botonEnviar").click(function(){
+            let idUsuario = "id" + numFila;
+
+            let usuario = {
+                id: idUsuario,
+                nombre: $("#nombre").val(),
+                apellido: $("apellido").val(),
+                edad: $("#edad").val(),
+                ciudad: $("#ciudad").val(),
+            }
+
+            $(filas).push(usuario);
+
+            numFila++;
+        });
+
+        // Funcion para serializar
+        function serializar(obj) {
+            return JSON.stringify(obj)
+        }
+        
+        // Funcion para deserializar
+        function deserializar(objJson) {
+            return JSON.parse(objJson)
+        }
+    </script>
+</body>
+</html>

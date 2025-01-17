@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio2</title>
 </head>
-<body>
+<body id="cuerpoHtml">
     <h1>Ejercicio 2: datos dinámicos</h1>
     <!--Formulario-->
     <form id="formulario">
@@ -13,26 +13,99 @@
         <input id="apellido" type="text" placeholder="apellido">
         <input id="edad" type="text" placeholder="edad">
         <input id="ciudad" type="text" placeholder="ciudad">
-        <button type="reset" onclick="enviar()">Pulsa y observa la consola</button>
+        <button type="submit" onclick="enviar()">Pulsa y observa la consola</button>
     </form>
+    <br>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpoTabla">
 
-    <table>
+        </tbody>
     </table>
-
+    <p id="calculos"></p>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
-       
+            // Se declaran fuera porque no queremos que se reinicien
+            let suma = 0;
+            let media = 0;
+            let max = Number.MIN_VALUE;
+            let min = Number.MAX_VALUE;
+            let contador = 0;
+
+        // Funcion que se realiza al pulsar el boton enviar
        function enviar(){
-            let objeto = {
+            event.preventDefault(); // Previene la recarga de la pagina
+            // Objeto fila que recoge al valor de los inputs
+            let fila = {
                 nombre: $("#nombre").val(),
                 apellido: $("#apellido").val(),
                 edad: $("#edad").val(),
                 ciudad: $("#ciudad").val()
             }
-        console.log(objeto);
+
+            // Array con el contenido de los diferentes campos
+            let campos = [fila.nombre,fila.apellido,fila.edad,fila.ciudad]
+            // Array con el nombre de los diferentes campos
+            const nombresCampos = ["Nombre", "Apellido", "Edad", "Ciudad"];
+            // Booleano para saber si algun campo vacio
+            let ningunoVacio = true;
+
+            // Recorremos los valores si alguno es cadena vacía mostramos la alerta y el booleano pasa a false
+            for (let i = 0; i < campos.length; i++) {
+                if (campos[i] == "") {
+                    alert("El campo " + nombresCampos[i] + " está vacío");
+                    ningunoVacio = false;
+                }
+            }
+            
+            // Añade la fila al cuerpo si todos los campos tienen contenido
+           if (ningunoVacio) {
+
+            $("#cuerpoTabla").append(generarTr(fila))
+            
+            let edad = parseInt(fila.edad)
+
+            if (edad > 0 && edad <= 100) {
+                // Suma
+                suma += edad;
+                contador++
+                // Media
+                media = suma / contador;
+                //Min
+                if (fila.edad < min) {
+                    min = edad;
+                }
+                //Max
+                if (fila.edad > max) {
+                    max = edad;
+                }
+                // Añadimos el parrafo con los datos
+                $("#calculos").text(`Suma: ${suma} Media: ${media} Max: ${max} Min: ${min}`)
+            } 
+           };
         };
 
-        
+        // Funcion que genera fila
+        function generarTr(fila){
+            return `<tr>
+                <td>${fila.nombre}</td>
+                <td>${fila.apellido}</td>
+                <td>${fila.edad}</td>
+                <td>${fila.ciudad}</td>
+            </tr>`
+        };
+
+        // Elimina tr
+        $("#cuerpoTabla").on("click", "tr", function() {
+            this.remove();
+        });
 
         // Funcion que serializa
         function serializar(obj) {
@@ -43,6 +116,7 @@
         function deserializar(objJson) {
             return JSON.parse(objJson)
         };   
+   
     </script>
 </body>
 </html>
