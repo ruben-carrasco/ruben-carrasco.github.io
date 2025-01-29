@@ -15,6 +15,18 @@
     <label>Ciudad</label>
     <input id="ciudad" name="ciudad" type="text">
     <button type="button" id="enviar">Enviar</button>
+    <fieldset id="hobbies">
+        <legend>Hobbies</legend>
+        <input type="checkbox" name="hobbies" value="deporte">Deporte
+        <input type="checkbox" name="hobbies" value="lectura">Lectura
+        <input type="checkbox" name="hobbies" value="música">Música
+        <input type="checkbox" name="hobbies" value="juegos">Juegos
+        <input type="checkbox" name="hobbies" value="cine">Cine
+        <input type="checkbox" name="hobbies" value="teatro">Teatro
+        <input type="checkbox" name="hobbies" value="coleccionismo">Coleccionismo
+        <input type="checkbox" name="hobbies" value="bricolaje">Bricolaje
+        <input type="checkbox" name="hobbies" value="cosplay">Cosplay
+    </fieldset>
 </form>
 <div id="tabla"></div>
 <div id="resultados"></div>
@@ -22,20 +34,24 @@
 <script>
     lista = [];
 
-    $("#enviar").click(function () {
-        let nombre = $("#nombre").val();
-        let apellidos = $("#apellidos").val();
-        let edad = $("#edad").val();
-        let ciudad = $("#ciudad").val();
-        let obj = {
-            "nombre": nombre,
-            "apellidos": apellidos,
-            "edad": edad,
-            "ciudad": ciudad
-        }
-        lista.push(obj);
-        simulacro();
-    });
+    $("#enviar").click(function solicitud(){
+   	const xhr = new XMLHttpRequest();
+   	xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
+   	xhr.responseType = "json"; // Si no se indica, necesitará parseo
+
+// Preparamos a continuación la recepción
+   	xhr.onload = function() {
+       	if (xhr.readyState == 4 && xhr.status == 200) {
+           	const data = xhr.response;
+           	console.log(data);
+       	} else {
+           	console.log("Error: ${xhr.status}");
+       	}
+   	};
+   	xhr.send();
+}
+
+);
 
     function simulacro() {
         let lista_serializada = serializar(lista);
@@ -59,6 +75,7 @@
             "<th>Apellidos</th>" +
             "<th>Edad</th>" +
             "<th>Ciudad</th>" +
+            "<th>Hobbies</th>" +
             "</tr>" +
             "</thead>";
         tabla += "<tbody id='cuerpo'></tbody>";
@@ -67,7 +84,15 @@
     }
 
     function nuevafila(obj, idObjeto) {
-        return "<tr id='" + idObjeto + "' onclick='eliminarTR(this.id)'><td>" + obj.nombre + "</td><td>" + obj.apellidos + "</td><td>" + obj.edad + "</td><td>" + obj.ciudad + "</td></tr>";
+        let filaDevuelta = "<tr id='" + idObjeto + "' onclick='eliminarTR(this.id)'><td>" + obj.nombre + "</td><td>" + obj.apellidos + "</td><td>" + obj.edad + "</td><td>" + obj.ciudad + "</td><td><ul>";
+        obj.hobbies.forEach(
+            function(elemento) {
+                filaDevuelta += ("<li>" + elemento + "</li>");
+            }
+        )
+        filaDevuelta += "</ul></td></tr>";
+
+        return filaDevuelta;
     }
 
     function eliminarTR(idTR) {

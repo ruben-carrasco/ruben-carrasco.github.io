@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envíos y recepciones</title>
+</head>
+
+<body>
+    <p>Botones de Recepcion</p>
+    <button id="recepcionXML" type="button">Recibir</button>
+    <button id="recepcionAjax" type="button">Recibir</button>
+    <button id="recepcionJQuery" type="button">Recibir</button>
+    <p>Botones de Envio</p>
+    <button id="envioXML" type="button">Enviar</button>
+    <button id="envioAjax" type="button">Enviar</button>
+    <button id="envioJQuery" type="button">Enviar</button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        // Creamos el objeto
+
+        // Recepcion XML
+        $("#recepcionXML").click(function solicitud() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
+            xhr.responseType = "json"; // Si no se indica, necesitará parseo
+
+            // Preparamos a continuación la recepción
+            xhr.onload = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    const data = xhr.response;
+                    console.log(data);
+                } else {
+                    console.log("Error: ${xhr.status}");
+                }
+            };
+            xhr.send();
+        });
+
+        // Recepcion AJAX
+        $("#recepcionAjax").click(function solicitud() {
+            $.ajax({
+                url: "https://jsonplaceholder.typicode.com/users",
+                method: "GET",
+                dataType: "json", // Convierte la respuesta a objeto JSON 
+                success: function (data) { //200 o 201
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log(`Error: ${xhr.status} - ${error}`);
+                }
+            })
+        });
+
+        // Recepcion JQUERY
+        $("#recepcionJQuery").click(function solicitud() {
+            $.get("https://jsonplaceholder.typicode.com/users")
+                .done(function (data) {
+                    console.log(data);
+                })
+                .fail(function (xhr, status, error) {
+                    console.log(`Error: ${xhr.status} - ${error}`);
+                });
+        });
+
+
+        // ENVIO XML
+        $("#envioXML").click(function envio(objeto_js) {
+            objeto_js = {
+            nombre: "Paco",
+            edad: 18
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://jsonplaceholder.typicode.com/posts");
+            xhr.responseType = "json"; // Si no se indica, necesitará parseo
+
+            // Preparamos a continuación la respuesta
+            xhr.onload = function () {
+                if (xhr.readyState == 4 && xhr.status == 201) { // 200 || 201
+                    console.log(xhr.response);
+                } else {
+                    console.log("Error: ${xhr.status}");
+                }
+            };
+            xhr.send(JSON.stringify(objeto_js));
+        }
+        );
+
+        // ENVIO AJAX
+        $("#envioAjax").click(function envio(objeto_js) {
+            objeto_js = {
+            nombre: "Paco",
+            edad: 18
+            }
+
+            $.ajax({
+                url: "https://jsonplaceholder.typicode.com/posts",
+                method: "POST",
+                data: JSON.stringify(objeto_js),
+                contentType: "application/json", // Especifica el tipo de contenido
+                dataType: "json", // La respuesta será interpretada como JSON
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log(`Error: ${xhr.status} - ${error}`);
+                }
+            });
+        }
+        );
+
+        // ENVIO JQUERY
+        $("#envioJQuery").click(function envio(objeto_js) {
+            objeto_js = {
+            nombre: "Paco",
+            edad: 18
+            }
+
+            $.post("https://jsonplaceholder.typicode.com/posts",
+                JSON.stringify(objeto_js),
+                function (response) {
+                    console.log(response);
+                },
+                "json"
+            )
+                .fail(function (xhr, status, error) {
+                    console.log(`Error: ${xhr.status} - ${error}`);
+                });
+        }
+        );
+    </script>
+</body>
+
+</html>
