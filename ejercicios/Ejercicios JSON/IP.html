@@ -16,7 +16,7 @@
         $("#enviar").click(function recibirDireccion() {
             let ip = $("#ip").val();
 
-            $.get(`http://ipwho.is/${ip}`)
+            $.get(`https://ipwho.is/${ip}`)
                 .done(function (data) {
                     console.log(data);
                 })
