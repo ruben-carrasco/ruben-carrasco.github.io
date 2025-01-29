@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <form>
         <input id="ip" type="text" placeholder="Introduce una ip">
@@ -16,14 +17,20 @@
         $("#enviar").click(function recibirDireccion() {
             let ip = $("#ip").val();
 
-            $.get(`https://ipwho.is/${ip}`)
-                .done(function (data) {
+            $.ajax({
+                url: `https://ipwho.is/${ip}`,
+                method: "GET",
+                dataType: "json", // Convierte la respuesta a objeto JSON 
+                success: function (data) { //200 o 201
                     console.log(data);
-                })
-                .fail(function (xhr, status, error) {
+                },
+                error: function (xhr, status, error) {
                     console.log(`Error: ${xhr.status} - ${error}`);
-                });
+                }
+            });
+
         });
     </script>
 </body>
+
 </html>
