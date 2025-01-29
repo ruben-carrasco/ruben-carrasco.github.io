@@ -14,9 +14,9 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         $("#enviar").click(function recibirDireccion() {
-            let ip ="http://ipwho.is/" + String($("ip").val);
+            let ip = $("#ip").val();
 
-            $.get(ip)
+            $.get(`http://ipwho.is/${ip}`)
                 .done(function (data) {
                     console.log(data);
                 })
