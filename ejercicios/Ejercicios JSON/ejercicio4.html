@@ -34,38 +34,41 @@
 <script>
     lista = [];
 
-    $("#enviar").click(function solicitud(){
-   	const xhr = new XMLHttpRequest();
-   	xhr.open("GET", "https://jsonplaceholder.typicode.com/users");
-   	xhr.responseType = "json"; // Si no se indica, necesitará parseo
+    $("#enviar").click(function () {
+        let nombre = $("#nombre").val();
+        let apellidos = $("#apellidos").val();
+        let edad = $("#edad").val();
+        let ciudad = $("#ciudad").val();
+        let hobbies = $('input[name="hobbies"]').filter(':checked').map(function() {
+            return $(this).val();
+        }).get();
+        let obj = {
+            "nombre": nombre,
+            "apellidos": apellidos,
+            "edad": edad,
+            "ciudad": ciudad,
+            "hobbies": hobbies
+        }
+        enviar(obj);
+    });
 
-// Preparamos a continuación la recepción
-   	xhr.onload = function() {
-       	if (xhr.readyState == 4 && xhr.status == 200) {
-           	const data = xhr.response;
-           	console.log(data);
-       	} else {
-           	console.log("Error: ${xhr.status}");
-       	}
-   	};
-   	xhr.send();
-}
-c
-);
-
-    function simulacro() {
-        let lista_serializada = serializar(lista);
-        let lista_NOserializada = deserializar(lista_serializada)
-        generaTabla(lista_NOserializada);
+    function enviar(obj) {
+        lista.push(obj);
+        $.ajax({
+                url: "https://lm.iesnervion.es/eco.php",
+                method: "POST",
+                data: JSON.stringify(lista),
+                contentType: "application/json", // Especifica el tipo de contenido
+                dataType: "json", // La respuesta será interpretada como JSON
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log(`Error: ${xhr.status} - ${error}`);
+                }
+            });
     }
 
-    function serializar(objeto) {
-        return JSON.stringify(objeto);
-    }
-
-    function deserializar(objJson) {
-        return JSON.parse(objJson);
-    }
 
     function creaTabla() {
         let tabla = "<table border='1' id='tabla_datos'>" +

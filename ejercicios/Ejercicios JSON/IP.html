@@ -5,32 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
 <body>
-    <form>
-        <input id="ip" type="text" placeholder="Introduce una ip">
-        <button id="enviar" type="button">Enviar</button>
-    </form>
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script>
-        $("#enviar").click(function recibirDireccion() {
+<form>
+    <input id="ip" type="text" placeholder="Introduce una ip">
+    <button id="enviar" type="button">Enviar</button>
+</form>
+<div class="mapouter"><div class="gmap_canvas"><iframe width="820" height="560" id="gmap_canvas" src="https://maps.google.com/maps?q=ies+nervion&t=&z=12&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://textcaseconvert.com/"></a><br><a href="https://online-timer.me/"></a><br><style>.mapouter{position: center;text-align: right;height: 560px;width: 820px;}</style><a href="https://www.embedmaps.co">generate Google Maps</a><style>.gmap_canvas{overflow: hidden;background: none !important;height: 560px;width: 820px;}</style></div></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    function cambiarDireccion(latitud, longitud) {
+        $("#gmap_canvas").attr("src", "https://maps.google.com/maps?q=" + latitud + "%2C" + longitud + "&t=&z=13&ie=UTF8&iwloc=&output=embed")
+    }
+    $("#enviar").click(function recibirDireccion() {
             let ip = $("#ip").val();
 
             $.ajax({
                 url: `https://ipwho.is/${ip}`,
                 method: "GET",
-                dataType: "json", // Convierte la respuesta a objeto JSON 
+                dataType: "json", // Convierte la respuesta a objeto JSON
                 success: function (data) { //200 o 201
                     console.log(data);
+                    let latitud = data.latitude;
+                    let longitud = data.longitude;
+                    cambiarDireccion(latitud,longitud);
                 },
                 error: function (xhr, status, error) {
                     console.log(`Error: ${xhr.status} - ${error}`);
                 }
+
             });
 
         });
-    </script>
-</body>
-
+</script>
 </html>
