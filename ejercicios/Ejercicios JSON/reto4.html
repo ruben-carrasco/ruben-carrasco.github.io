@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reto 4</title>
+    <style>
+        h2 {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+     <!-- Formulario -->
+    <form>
+        Descripción: <textarea id="descripcion" placeholder="Introduce una descripción"></textarea>
+        ID del proveedor: <input id="idProveedor" type="text" name="idProveedor">
+        Precio: <input id="precio" type="text" name="precio">
+        <button id="enviar" type="button">Enviar</button>
+    </form>
+    <div id="tabla"></div>
+    <div id="error">
+
+    </div>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        //Recoger valores del formulario al pusar boton
+        $("#enviar").click(function() {
+            let datosProducto = {
+                descripcion: $("#descripcion").val(),
+                idProveedor: $("#idProveedor").val(),
+                precio: $("#precio").val()
+            }
+
+            enviarServer(datosProducto);
+
+        });
+
+        // Funcion para enviar al servidor
+        function enviarServer(obj) {
+            // Si los datos son correctos
+            if (typeof obj.descripcion === "string" && typeof obj.idProveedor === "number" && typeof obj.precio === "number") {
+                $.ajax({
+                url: "https://lm.iesnervion.es/reto4.php",
+                method: "POST",
+                data: JSON.stringify(obj),
+                contentType: "application/json", // Especifica el tipo de contenido
+                dataType: "json", // La respuesta será interpretada como JSON
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log(`Error: ${xhr.status} - ${error}`);
+                }
+            });
+            // Si los datos son incorrectos
+            } else {
+                $("#error").html("<h2>Introduzca datos válidos</h2>")
+            }
+
+        
+        };
+
+        
+
+        // Funcion para generar tabla
+        function generaTabla() {
+
+        }
+    </script>
+</body>
+</html>

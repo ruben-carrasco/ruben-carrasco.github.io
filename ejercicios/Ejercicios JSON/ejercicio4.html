@@ -61,7 +61,7 @@
                 contentType: "application/json", // Especifica el tipo de contenido
                 dataType: "json", // La respuesta será interpretada como JSON
                 success: function (data) {
-                    console.log(data);
+                    generaTabla(data);
                 },
                 error: function (xhr, status, error) {
                     console.log(`Error: ${xhr.status} - ${error}`);
@@ -104,32 +104,18 @@
         simulacro();
     }
 
-    function generaTabla(lista) {
+    function generaTabla(objeto) {
+        let cont = 0;
         let tabla = creaTabla();
         $("#tabla").html(tabla);
+        
 
-        let suma = 0;
-        let cont = 0;
-        let max = 0;
-        let min = 999;
-        console.log(lista);
-        lista.forEach(
+        objeto.lista.forEach(
             function (elemento) {
-                cont++;
-                suma = suma + parseInt(elemento.edad);
-                if (elemento.edad > max) {
-                    max = elemento.edad;
-                }
-                if (elemento.edad < min) {
-                    min = elemento.edad;
-                }
-                media = suma / cont;
-                pSuma = "<p>Suma: " + suma + "</p>";
-                pMedia = "<p>Media: " + media + "</p>";
-                pMax = "<p>Max: " + max + "</p>";
-                pMin = "<p>Min: " + min + "</p>";
-                $("#resultados").html(pSuma + pMedia + pMax + pMin);
+                console.log(elemento);
                 $("#tabla_datos").append(nuevafila(elemento, cont));
+                $("#r")
+                cont++;
             }
         )
     }
